@@ -258,20 +258,25 @@ namespace Registration.DataInterface.Sql
             return GetLetterOrderBy(commandText);
         }
 
-        public Letter ChangeLetter(Guid id, string commandText, string nameColumn, string newValue)
+        public Letter ChangeLetter<T>(Guid id, string commandText, string nameColumn, T newValue)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "update Letter set name = @name where id = @id";
-                    command.Parameters.AddWithValue("@name", newValue);
+                    command.CommandText = commandText;
+                    command.Parameters.AddWithValue(nameColumn, newValue);
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+
+                    command.CommandText = "update Letter set date = @date where id = @id";
+                    command.Parameters.AddWithValue("@date", DateTime.Now);
                     command.Parameters.AddWithValue("@id", id);
                     command.ExecuteNonQuery();
 
                     return Get(id);
-
                 }
             }
         }
@@ -279,8 +284,67 @@ namespace Registration.DataInterface.Sql
         public Letter ChangeLetterName(Guid id, string newName)
         {
             string commandText = "update Letter set name = @name where id = @id";
-            string nameColumn = "@name";           
+            string nameColumn = "@name";
             return ChangeLetter(id, commandText, nameColumn, newName);
+        }
+
+        public Letter ChangeLetterText(Guid id, string newText)
+        {
+            string commandText = "update Letter set text = @text where id = @id";
+            string nameColumn = "@text";
+            return ChangeLetter(id, commandText, nameColumn, newText);
+        }
+
+        public Letter ChangeLetterIdSender(Guid id, Guid newIdSender)
+        {
+            string commandText = "update Letter set idSender = @idSender where id = @id";
+            string nameColumn = "@idSender";
+            return ChangeLetter(id, commandText, nameColumn, newIdSender);
+        }
+
+        public Letter ChangeLetterReceivers(Guid id, List<Guid> newIdReceivers)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "delete from ListOfReceivers where idLetter = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+
+                    foreach (var idRec in newIdReceivers)
+                    {
+                        command.CommandText = "insert into ListOfReceivers (idLetter, idWorker) values (@idLetter, @idWorker)";
+                        command.Parameters.AddWithValue("@idLetter", id);
+                        command.Parameters.AddWithValue("@idWorker", idRec);
+                        command.ExecuteNonQuery();
+                        command.Parameters.Clear();
+                    }
+
+                    return Get(id);
+                }
+            }
+        }
+
+        public void Delete(Guid id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = "delete from ListOfReceivers where idLetter = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                    command.Parameters.Clear();
+
+                    command.CommandText = "delete from Letter where id = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

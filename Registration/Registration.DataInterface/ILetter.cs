@@ -18,5 +18,10 @@ namespace Registration.DataInterface
         List<Letter> GetLettersOrderByDate();
 
         Letter ChangeLetterName(Guid id, string newName);
+        Letter ChangeLetterText(Guid id, string newText);
+        Letter ChangeLetterIdSender(Guid id, Guid newIdSender);
+        Letter ChangeLetterReceivers(Guid id, List<Guid> newIdReceivers);
+
+        void Delete(Guid id);
     }
 }
