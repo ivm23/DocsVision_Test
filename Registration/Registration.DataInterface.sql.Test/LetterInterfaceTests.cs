@@ -31,11 +31,11 @@ namespace Registration.DataInterface.sql.Test
             Assert.AreEqual(letter.text, msg);
             Assert.AreEqual(letter.name, nameLetter);
 
-            Assert.AreEqual(letter.idReciever.Count, receivers.Count);
+            Assert.AreEqual(letter.idReceiver.Count, receivers.Count);
 
             for (int i = 0; i < receivers.Count; ++i)
             {
-                Assert.AreEqual(letter.idReciever[i], receivers[i]);
+                Assert.AreEqual(letter.idReceiver[i], receivers[i]);
             }
 
         }
@@ -59,11 +59,11 @@ namespace Registration.DataInterface.sql.Test
             Assert.AreEqual(letter.text, getLetter.text);
             Assert.AreEqual(letter.name, getLetter.name);
 
-            Assert.AreEqual(letter.idReciever.Count, getLetter.idReciever.Count);
+            Assert.AreEqual(letter.idReceiver.Count, getLetter.idReceiver.Count);
 
             for (int i = 0; i < receivers.Count; ++i)
             {
-                Assert.AreEqual(letter.idReciever[i], getLetter.idReciever[i]);
+                Assert.AreEqual(letter.idReceiver[i], getLetter.idReceiver[i]);
             }
 
         }

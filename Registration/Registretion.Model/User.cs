@@ -11,6 +11,11 @@ namespace Registration.Model
         public string login { get; set; }
         public string name { get; set; }
         public Guid id { get; set; }
+    }
 
+    public struct InfoWorker
+    {
+        public string name { get; set; }
+        public string login { get; set; }
     }
 }

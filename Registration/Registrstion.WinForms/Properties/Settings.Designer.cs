@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Registration.WinForm.Properties
+namespace Registrstion.WinForms.Properties
 {
 
 

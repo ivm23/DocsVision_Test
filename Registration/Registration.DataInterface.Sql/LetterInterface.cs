@@ -30,7 +30,7 @@ namespace Registration.DataInterface.Sql
                     {
                         id = Guid.NewGuid(),
                         idSender = sender,
-                        idReciever = new List<Guid>(),
+                        idReceiver = new List<Guid>(),
                         date = DateTime.Now,
                         name = nameLetter,
                         text = msg
@@ -38,7 +38,7 @@ namespace Registration.DataInterface.Sql
 
                     foreach (Guid receiver in receivers)
                     {
-                        letter.idReciever.Add(receiver);
+                        letter.idReceiver.Add(receiver);
                     }
 
                     using (var command = connection.CreateCommand())
@@ -127,11 +127,11 @@ namespace Registration.DataInterface.Sql
                             {
                                 throw new ArgumentException($"Пользователя с таким id {idRec} нет!");
                             }
-                            receivers.Add(reader.GetString(reader.GetOrdinal("name")) + "  (" + reader.GetString(reader.GetOrdinal("login")) + ')');
+                            receivers.Add(reader.GetString(reader.GetOrdinal("name")) + " (" + reader.GetString(reader.GetOrdinal("login")) + ')');
 
                             while (reader.Read())
                             {
-                                receivers.Add(reader.GetString(reader.GetOrdinal("name")) + "  (" + reader.GetString(reader.GetOrdinal("login")) + ')');
+                                receivers.Add(reader.GetString(reader.GetOrdinal("name")) + " (" + reader.GetString(reader.GetOrdinal("login")) + ')');
                             }
                         }
                         command.Parameters.Clear();
@@ -161,7 +161,7 @@ namespace Registration.DataInterface.Sql
                         {
                             throw new ArgumentException($"Пользователя с таким id {letter.idSender} нет!");
                         }
-                        return reader.GetString(reader.GetOrdinal("name")) + "  (" + reader.GetString(reader.GetOrdinal("login")) + ')';
+                        return reader.GetString(reader.GetOrdinal("name")) + " (" + reader.GetString(reader.GetOrdinal("login")) + ')';
                     }
                 }
             }
@@ -188,14 +188,15 @@ namespace Registration.DataInterface.Sql
                             name = reader.GetString(reader.GetOrdinal("name")),
                             idSender = reader.GetGuid(reader.GetOrdinal("idSender")),
                             text = reader.GetString(reader.GetOrdinal("text")),
-                            idReciever = new List<Guid>()
+                            date = reader.GetDateTime(reader.GetOrdinal("date")),
+                            idReceiver = new List<Guid>()
                         };
 
                         var receivers = GetIdReceivers(idLetter);
 
                         foreach (var rec in receivers)
                         {
-                            letter.idReciever.Add(rec);
+                            letter.idReceiver.Add(rec);
                         }
                         return letter;
                     }
@@ -224,14 +225,14 @@ namespace Registration.DataInterface.Sql
                                 idSender = reader.GetGuid(reader.GetOrdinal("idSender")),
                                 date = reader.GetDateTime(reader.GetOrdinal("date")),
                                 text = reader.GetString(reader.GetOrdinal("text")),
-                                idReciever = new List<Guid>()
+                                idReceiver = new List<Guid>()
                             };
 
                             var receivers = GetIdReceivers(letter.id);
 
                             foreach (var rec in receivers)
                             {
-                                letter.idReciever.Add(rec);
+                                letter.idReceiver.Add(rec);
                             }
                             letters.Add(letter);
                         }

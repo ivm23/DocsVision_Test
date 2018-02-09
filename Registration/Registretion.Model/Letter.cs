@@ -10,7 +10,7 @@ namespace Registration.Model
     {
         public Guid id; 
         public Guid idSender { get; set; }
-        public List<Guid> idReciever { get; set; }
+        public List<Guid> idReceiver { get; set; }
         public DateTime date { get; set; }
         public string name { get; set; }
         public string text { get; set; }
