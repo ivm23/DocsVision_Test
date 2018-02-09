@@ -37,7 +37,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/idReceivers")]
         public List<Guid> GetIdReceivers(Guid id)
         {
-            NLogger.Logger.Trace("Запрос на получение списка ID получателей письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на получение списка ID получателей письма с ID: {id}");
             return _letterInterface.GetIdReceivers(id);
         }
 
@@ -46,7 +46,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/receivers")]
         public List<string> GetReceivers(Guid id)
         {
-            NLogger.Logger.Trace("Запрос на получение списка имен и логинов получателей письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на получение списка имен и логинов получателей письма с ID: {id}");
             return _letterInterface.GetReceivers(id);
         }
 
@@ -54,7 +54,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/sender")]
         public string GetSender(Guid id)
         {
-            NLogger.Logger.Trace("Запрос на получение ID отправителя письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на получение ID отправителя письма с ID: {id}");
             return _letterInterface.GetSender(id);
         }
 
@@ -62,7 +62,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}")]
         public Letter GetLetter(Guid id)
         {
-            NLogger.Logger.Trace("Запрос на получение письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на получение письма с ID: {id}");
             return _letterInterface.Get(id);
         }
 
@@ -94,7 +94,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/newName")]
         public Letter ChangeLetterName(Guid id, [FromBody] string newName)
         {
-            NLogger.Logger.Trace("Запрос на изменение названия письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на изменение названия письма с ID: {id}");
             return _letterInterface.ChangeLetterName(id, newName);
         }
 
@@ -102,7 +102,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/newText")]
         public Letter ChangeLetterText(Guid id, [FromBody] string newText)
         {
-            NLogger.Logger.Trace("Запрос на изменение содержания письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на изменение содержания письма с ID: {id}");
             return _letterInterface.ChangeLetterText(id, newText);
         }
 
@@ -110,7 +110,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/newIdSender")]
         public Letter ChangeLetterName(Guid id, [FromBody] Guid newIdSender)
         {
-            NLogger.Logger.Trace("Запрос на изменение отправителя письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на изменение отправителя письма с ID: {id}");
             return _letterInterface.ChangeLetterIdSender(id, newIdSender);
         }
 
@@ -119,7 +119,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}/newIdReceivers")]
         public Letter ChangeLetterIdReceivers(Guid id, [FromBody] List<Guid> newReceivers)
         {
-            NLogger.Logger.Trace("Запрос на изменение списка получателей письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на изменение списка получателей письма с ID: {id}");
             return _letterInterface.ChangeLetterReceivers(id, newReceivers);
         }
 
@@ -127,7 +127,7 @@ namespace Messenger.Api.Controllers
         [Route("api/letter/{id}")]
         public void Delete(Guid id)
         {
-            NLogger.Logger.Trace("Запрос на удаление письма с ID: {id}", id);
+            NLogger.Logger.Trace($"Запрос на удаление письма с ID: {id}");
             _letterInterface.Delete(id);
         }
     }

@@ -36,7 +36,7 @@ namespace Messenger.Api.Controllers
         [Route("api/worker/{login}")]
         public User Get(string login)
         {
-            NLogger.Logger.Trace("Запрос на получение сотрудника с логином: {login}", login);
+            NLogger.Logger.Trace($"Запрос на получение сотрудника с логином: {login}");
             return _workerInterface.Get(login);
         }
 
