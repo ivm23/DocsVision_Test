@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Registration.Model;
+using Registration.Logger;
 
 using System.Linq;
 using System.Text;
@@ -70,7 +71,7 @@ namespace Registration.DataInterface.Sql
 
 
                         transaction.Commit();
-
+                        NLogger.Logger.Trace("База данных:Добавлено в таблицу:{0}:значения (Id: {1}, Name:{2})", "[Letter]", letter.id, letter.name);
                         return letter;
                     }
                 }
@@ -344,6 +345,8 @@ namespace Registration.DataInterface.Sql
                     command.CommandText = "delete from Letter where id = @id";
                     command.Parameters.AddWithValue("@id", id);
                     command.ExecuteNonQuery();
+
+                    NLogger.Logger.Trace("База данных:удалено из таблиц:{0}, {1}:где id:{2}", "[Letter]", "[ListOfReceivers]", id);
                 }
             }
         }
